@@ -2,7 +2,8 @@
     <head>
 
         <link rel="stylesheet" href="./style.css">
-        <script src="./script.js"></script>
+        <script type="text/javascript" src="./script.js"></script>
+        <script type="text/javascript" src="./load-rosters.js"></script>
 
     </head>
     <body>
@@ -18,9 +19,10 @@
                         <th colspan="3">Attacking</th>
                         <th colspan="3">Serving</th>
                         <th>Error</th>
+                        <th>Active</th>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                         <td>1</td>
                         <td>Morgan</td>
                         <td><button onclick = "updateStats('1-mor-pass-0')">0</button></td>
@@ -37,7 +39,9 @@
                         <td><button onclick = "updateStats('1-mor-serve-a')">A</button></td>
 
                         <td><button onclick = "updateStats('1-mor-error-0')">E</button></td>
-                    </tr>
+                    </tr> -->
+
+                    <tbody id = "input-table"></tbody>
                 </table>
             </div>
 
@@ -46,16 +50,15 @@
 
                 <table>
                     <tr>
-                        <th>#</th>
-                        <th>Athlete Name</th>
+                        <th rowspan="2">#</th>
+                        <th rowspan="2">Athlete Name</th>
                         <th colspan="5">Passing</th>
                         <th colspan="4">Attacking</th>
                         <th colspan="4">Serving</th>
-                        <th>Total</th>
+                        <th rowspan="2">Errors</th>
                     </tr>
                     <tr>
-                        <th>#</th>
-                        <th>Athlete Name</th>
+                        
                         <th>0</th>
                         <th>1</th>
                         <th>2</th>
@@ -72,9 +75,9 @@
                         <th>1</th>
                         <th>A</th>
                         <th>Avg</th>
-
-                        <th>Errors</th>
                     </tr>
+
+                    <tbody id = "stat-sheet"></tbody>
                 </table>
             </div>
         </div>

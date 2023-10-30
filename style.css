@@ -1,5 +1,23 @@
+body {
+    font-family: sans-serif;
+}
 table, td, tr, th {
     border: 1px solid black;
     border-collapse: collapse;
     padding: 5px;
+}
+
+table {
+    width: 100%;
+}
+
+td {
+    text-align: center;
+}
+tr:nth-child(even) {
+    background-color: lightgrey;
+}
+
+button {
+    width: 100%;
 }
