@@ -3,7 +3,8 @@ const SKILL = {
     PASS: "pass",
     SERVE: "serve",
     ATTACK: "attack",
-    ERROR: "error"
+    ERROR: "error",
+    ACTIVE: "active"
 }
 const LOCAL_STG_DB_KEY = "db";
 
@@ -60,7 +61,7 @@ class Utils {
     }
 
     createAthleteStats(obj) {
-        return new AthleteStats(obj.name, obj.number, obj.id, obj.passRatingList, obj.serveRatingList, obj.attackRatingList, obj.errorCount);
+        return new AthleteStats(obj.name, obj.number, obj.id, obj.passRatingList, obj.serveRatingList, obj.attackRatingList, obj.errorCount, obj.active);
     }
 }
 
@@ -98,7 +99,7 @@ class StatKey {
 }
 
 class AthleteStats {
-    constructor(name, number, id, passRatingList, serveRatingList, attackRatingList, errorCount) {
+    constructor(name, number, id, passRatingList, serveRatingList, attackRatingList, errorCount, active) {
         this.name = name;
         this.number = number;
         if (id == undefined) {
@@ -132,20 +133,28 @@ class AthleteStats {
         }
 
         this.errorCount = (errorCount == undefined) ? 0 : errorCount;
+        this.active = (active == undefined) ? false : active;
     }
 
     getId() {
         return this.id;
     }
+
     getNumber() {
         return this.number;
     }
+
     getName() {
         return this.name;
     }
 
+    isActive() {
+        return this.active;
+    }
+
     updateSkill(skill, value) {
         switch (skill) {
+            case "ACTIVE": this.active = value; break;
             case "PASS": this.passRatingList.push(value); 
                 this.passingAvg = round(averageList(this.passRatingList), 2); 
                 break;
@@ -213,6 +222,9 @@ class MatchStatDatabase {
 
 class LocalStorageUtil {
     constructor(db) {
+        if (db == null | db == undefined) {
+            return;
+        }
         localStorage.setItem(LOCAL_STG_DB_KEY, JSON.stringify(db));
     }
     
@@ -220,6 +232,10 @@ class LocalStorageUtil {
         // Get Data From Local Storage
         var jsonObj = JSON.parse(localStorage.getItem(LOCAL_STG_DB_KEY));
         var matchStatDB = new MatchStatDatabase(jsonObj["athletes"], jsonObj["history"]);
+        if (matchStatDB.history.length == 0) {
+            console.error("Stat Hiostroy is Empty!");
+            return;
+        }
         var statKeyString = matchStatDB.history.pop();
         
         console.log ("Undo ", statKeyString)
@@ -236,10 +252,10 @@ class LocalStorageUtil {
     }
 
     updateStatsByKey(statKeyString) {
-        console.log ("Update ", statKeyString)
         // Parse Stat Key
         var statKey = UTILS.parseKeyString(statKeyString);
         var skill = statKey.getSkill();
+        
         var value = statKey.getValue();
         var dbKey = statKey.getDatabaseKey();
         // FInd & Update Athlete Object
@@ -248,13 +264,22 @@ class LocalStorageUtil {
         matchStatDB.updateStatByAtheleteId(dbKey, skill, value);
         // console.log( matchStatDB)
         // Update Local Storage
-        matchStatDB.history.push(statKeyString);
+        if (skill != "ACTIVE") {
+            console.log ("Update ", statKeyString);
+            matchStatDB.history.push(statKeyString);
+        }
         localStorage.setItem(LOCAL_STG_DB_KEY, JSON.stringify(matchStatDB));
         updateStatTable();
     }
 
     getMatchStatDatabase() {
-        var jsonObj = JSON.parse(localStorage.getItem(LOCAL_STG_DB_KEY));
+        var jsonString = localStorage.getItem(LOCAL_STG_DB_KEY);
+        // console.log(jsonString)
+        if (jsonString == null || jsonString == undefined) {
+            return null;
+        }
+        var jsonObj = JSON.parse(jsonString);
+    
         var matchStatDB = new MatchStatDatabase(jsonObj["athletes"], jsonObj["history"]);
         matchStatDB.athletes = matchStatDB.athletes.map(athlete => UTILS.createAthleteStats(athlete));
         return matchStatDB;
@@ -313,7 +338,7 @@ function updateInputTable() {
 function inputTableBody() {
     var db = LOCAL_STG_UTIL.getMatchStatDatabase();
     var tableString = "";
-    console.log("input body")
+    // console.log("input body")
 
     db.athletes.map(ath => {
         var rowKey = [ath.getId(), "row"].join(STAT_KEY_DELIMITER);
@@ -336,8 +361,7 @@ function inputTableBody() {
        "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.SERVE, "A").getKey() + "')>A</button></td><td>" + 
 
        "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.ERROR, 0).getKey() + "')>E</button></td><td>" +
-       "<input type='checkbox' value='" + rowKey + "'></td>");
-    
+       "<input type='checkbox' rowId='" + rowKey + "' active =" + ath.isActive() + " statkeyprefix='" + [ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(),SKILL.ACTIVE].join(STAT_KEY_DELIMITER) +"'></td>");
     });
     return tableString;
 }
@@ -347,45 +371,81 @@ async function loadRoster(jsonFilePath) {
 }
 
 const UTILS = new Utils();
-var LOCAL_STG_UTIL = new LocalStorageUtil(new MatchStatDatabase([athleteList], []));
-
 var athleteList = [];
+var LOCAL_STG_UTIL = new LocalStorageUtil();
 
 
 
-window.onload = () => {
-    loadRoster("./roster/lghs_2023_varsity.json")
-        .then(json => json.map(athleteJson => new AthleteStats(athleteJson.name, athleteJson.number)))
-        .then(athleteJsonList => {
-            // console.log(athleteJsonList)
-            LOCAL_STG_UTIL = new LocalStorageUtil(new MatchStatDatabase(athleteJsonList, []));
-            return Promise.resolve();
-        })
-        .then(() => {
-            updateStatTable();
-            updateInputTable();
-        })
-        .then(() => {
+
+window.addEventListener("load", () => {
+
+    console.log("reload")
+    var existingData = LOCAL_STG_UTIL.getMatchStatDatabase();
+
+    if (existingData == null) {
+        loadRoster("./roster/lghs_2023_varsity.json")
+            .then(json => json.map(athleteJson => new AthleteStats(athleteJson.name, athleteJson.number)))
+            .then(athleteJsonList => {
+                // console.log(athleteJsonList)
+                LOCAL_STG_UTIL = new LocalStorageUtil(new MatchStatDatabase(athleteJsonList, []));
+                return Promise.resolve();
+            })
+            .then(() => {
+                updateStatTable();
+                updateInputTable();
+            })
+            .then(() => {
+                var checkboxes = document.querySelectorAll("input[type='checkbox']");
+                // console.log(checkboxes)
+                checkboxes.forEach(box => {
+                    var rowId = box.getAttribute("rowId");
+                    highlightRowIfActive(rowId)
+                    box.addEventListener("change", (e) => highlightRowIfActive(rowId));
+                })
+            });
+    } else {
+        populateTables().then(() => {
             var checkboxes = document.querySelectorAll("input[type='checkbox']");
             // console.log(checkboxes)
             checkboxes.forEach(box => {
-                // console.log(box.value)
+                var rowId = box.getAttribute("rowId");
+                highlightRowIfActive(rowId)
                 box.addEventListener("change", (e) => {
-                    var rowId = box.value;
-
-                    if (box.checked) {
-                        console.log("color: ", document.getElementById(rowId).style)
-                        // document.getElementById(rowId).style.backgroundColor="orange";
-                        // document.getElementById(rowId).style.border="3px solid orange";
-                    } else {
-                        // document.getElementById(rowId).style.backgroundColor="default";
-                        document.getElementById(rowId).style.border="1px solid black";
-
-                    }
-                
-                })
-            })
-        });
-
-        
+                    highlightRowIfActive(rowId);
+                });
+            }) 
+        })
     }
+    
+});
+
+
+
+
+    function populateTables() {
+        updateStatTable();
+        updateInputTable();
+        return Promise.resolve();
+    }
+
+    function highlightRowIfActive(rowId) {
+        var row = document.getElementById(rowId);
+        // console.log(rowId);
+        var box = row.querySelector("input[type='checkbox']");
+        // console.log(box)
+        var table = row.parentNode
+        var childIndex = Array.from(table.children).indexOf(row) + 1;
+        if (box.getAttribute("active") != null) {
+            box.checked = (box.getAttribute("active") == "TRUE");
+            box.removeAttribute("active");
+        }
+
+        LOCAL_STG_UTIL.updateStatsByKey([box.getAttribute("statkeyprefix"),box.checked].join(STAT_KEY_DELIMITER))
+        if (box.checked) {
+            row.style.backgroundColor = "orange";
+        } else {
+            row.style.backgroundColor = (childIndex % 2 == 0) ? "lightgrey": "inherit";
+        }
+    }
+
+    // function checkboxIfHighlightedAfter

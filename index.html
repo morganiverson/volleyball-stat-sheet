@@ -1,50 +1,47 @@
 <html>
     <head>
 
-        <link rel="stylesheet" href="./style.css">
+        <link rel="stylesheet" media="print,screen" href="./style.css">
+
+        <link rel="stylesheet" href="./features/tab-content/tabs.css">
+
+
         <script type="text/javascript" src="./script.js"></script>
         <script type="text/javascript" src="./load-rosters.js"></script>
+        <script type="text/javascript" src="./features/tab-content/manage-tabs.js"></script>
+        <script type="text/javascript" src="./features/stats/print.js"></script>
 
     </head>
     <body>
         <div>
-            <h2>Stat Input Table</h2>
-            <div><button onclick="undoLastStatEntry()">Undo</button></div>
-            <div>
-                <table>
-                    <tr>
-                        <th>#</th>
-                        <th>Athlete Name</th>
-                        <th colspan="4">Passing</th>
-                        <th colspan="3">Attacking</th>
-                        <th colspan="3">Serving</th>
-                        <th>Error</th>
-                        <th>Active</th>
-                    </tr>
-
-                    <!-- <tr>
-                        <td>1</td>
-                        <td>Morgan</td>
-                        <td><button onclick = "updateStats('1-mor-pass-0')">0</button></td>
-                        <td><button onclick = "updateStats('1-mor-pass-1')">1</button></td>
-                        <td><button onclick = "updateStats('1-mor-pass-2')">2</button></td>
-                        <td><button onclick = "updateStats('1-mor-pass-3')">3</button></td>
-
-                        <td><button onclick = "updateStats('1-mor-attack-0')">0</button></td>
-                        <td><button onclick = "updateStats('1-mor-attack-1')">1</button></td>
-                        <td><button onclick = "updateStats('1-mor-attack-k')">K</button></td>
-
-                        <td><button onclick = "updateStats('1-mor-serve-0')">0</button></td>
-                        <td><button onclick = "updateStats('1-mor-serve-1')">1</button></td>
-                        <td><button onclick = "updateStats('1-mor-serve-a')">A</button></td>
-
-                        <td><button onclick = "updateStats('1-mor-error-0')">E</button></td>
-                    </tr> -->
-
-                    <tbody id = "input-table"></tbody>
-                </table>
+            <div class="tab-btn-container">
+                <button class = "tab-btn" onclick = "displayTabContent('input-tab', this)" ref="input-tab">Input</button>
+                <button class = "tab-btn" onclick = "displayTabContent('stats-tab', this)" ref="stats-tab">Stats</button>
+            </div>
+            <div class = "tab-content" id = "input-tab">
+                <div>
+                    <h2>Stat Input Table</h2>
+                <div class = "input-btn-cont"</div>
+                    <button onclick="undoLastStatEntry()">Undo</button>
+                    <button onclick="clearStatSheet()">Clear</button>
+                    <button onclick="printStatSheet()">Print</button>
+                </div>
+                    <table>
+                        <tr>
+                            <th>#</th>
+                            <th>Athlete Name</th>
+                            <th colspan="4">Passing</th>
+                            <th colspan="3">Attacking</th>
+                            <th colspan="3">Serving</th>
+                            <th>Error</th>
+                            <th>Active</th>
+                        </tr>
+                        <tbody id = "input-table"></tbody>
+                    </table>
+                </div>
             </div>
 
+            <div class = "tab-content" id = "stats-tab">
             <div>
                 <h2>Stat Totals</h2>
 
@@ -78,8 +75,18 @@
                     </tr>
 
                     <tbody id = "stat-sheet"></tbody>
+                    
                 </table>
+
+                <div class = "input-btn-cont"</div>
+                    <button onclick="undoLastStatEntry()">Undo</button>
+                    <button onclick="clearStatSheet()">Clear</button>
+                    <button onclick="printStatSheet()">Print</button>
+                </div>
             </div>
+            </div>
+
         </div>
     </body>
+    
 </html>
