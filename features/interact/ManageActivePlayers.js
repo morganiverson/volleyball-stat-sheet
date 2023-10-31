@@ -1,5 +1,5 @@
 import { LOCAL_STORAGE_SERVICE } from "../stats/services/LocalStorageService.js"
-import { STAT_KEY_DELIMITER } from "../stats/util/Constants.js";
+import { ACTIVE_HIGHLIGHT_COLOR, BORDER_BOTTOM_CHECKED, BORDER_BOTTOM_UNCHECKED, STAT_KEY_DELIMITER } from "../stats/util/Constants.js";
 
 function highlightRowIfActive(rowId) {
     var row = document.getElementById(rowId);
@@ -16,12 +16,16 @@ function highlightRowIfActive(rowId) {
 
     LOCAL_STORAGE_SERVICE.updateStatsByKey([box.getAttribute("statkeyprefix"), box.checked].join(STAT_KEY_DELIMITER))
     if (box.checked) {
-        // console.log(box.getAttribute("rowid"), "orange")
-        row.style.backgroundColor = "orange";
+        row.style.backgroundColor = ACTIVE_HIGHLIGHT_COLOR;
+        row.style.borderBottom = BORDER_BOTTOM_CHECKED;
+        row.style.borderTop = BORDER_BOTTOM_CHECKED;
+
     } else {
-        // console.log(box.getAttribute("rowid"), "alt")
         row.style.backgroundColor = (childIndex % 2 == 0) ? "lightgrey": "inherit";
+        row.style.borderBottom = BORDER_BOTTOM_UNCHECKED;
+        row.style.borderTop = BORDER_BOTTOM_UNCHECKED;
     }
+    console.log(box.checked,row.style.borderBottom)
 }
 
 

@@ -25,8 +25,11 @@ window.undoLastStatEntry = () => {
 }
 
 window.onload = () => {
+    console.log(window.innerWidth)
     initializeTabContent();
 
+
+    
     console.log("reload")
     var existingData = LOCAL_STORAGE_SERVICE.getMatchStatDatabase();
 
@@ -44,5 +47,14 @@ window.onload = () => {
             .then(() => addOnChangeListenerForActiveCheckboxes());
     } else {
         populateTables().then(() => addOnChangeListenerForActiveCheckboxes());
+    }
+
+    if (window.innerWidth< 1200) {
+        console.log("mobile");
+        var buttons = document.querySelectorAll("td button").forEach(btn => {
+            btn.ontouchstart = () => btn.style.transform = "scale(0.99)";
+            btn.ontouchend = () => btn.style.transform = "scale(1)";
+    })
+        console.log(buttons)
     }
 }

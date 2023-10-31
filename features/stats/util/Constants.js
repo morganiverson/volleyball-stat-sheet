@@ -7,3 +7,9 @@ export const SKILL = {
     ACTIVE: "active"
 }
 export const LOCAL_STG_DB_KEY = "db";
+
+
+export const ACTIVE_HIGHLIGHT_COLOR = "#d3eae9";
+
+export const BORDER_BOTTOM_CHECKED = "1px solid black";
+export const BORDER_BOTTOM_UNCHECKED = "0px";

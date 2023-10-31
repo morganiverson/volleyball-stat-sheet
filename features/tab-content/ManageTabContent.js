@@ -10,7 +10,7 @@ export function displayTabContent(id, element) {
     [...document.getElementsByClassName(TAB_CONTENT_CLASS_NAME)].filter(element => element.id != id).forEach(element => element.style.display = "none");
     
     //display desired content
-    document.getElementById(id).style.display = "block";
+    document.getElementById(id).style.display = "flex";
 
     //highlight current tab
     [...document.getElementsByClassName(TAB_BTN_CLASS_NAME)].forEach(element => element.classList.remove(SELECTED_TAB_CLASS_NAME));

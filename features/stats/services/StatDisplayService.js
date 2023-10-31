@@ -1,5 +1,5 @@
 import LocalStorageService, { LOCAL_STORAGE_SERVICE } from "./LocalStorageService.js";
-import { STAT_KEY_DELIMITER, SKILL } from "../util/Constants.js";
+import { STAT_KEY_DELIMITER, SKILL, BORDER_BOTTOM_CHECKED } from "../util/Constants.js";
 import StatKey from "../classes/StatKey.js";
 
 function updateStatTable() {
@@ -15,22 +15,22 @@ function statTableBody() {
         // console.log(ath)
        tableString+= ("<tr><td>" + 
        ath.getNumber() + "</td><td>" + 
-       ath.getName() + "</td><td>" + 
+       ath.getName() + "</td><td class='div-td'></td><td>" + 
         ath.getNumberOfSkillRatings("PASS", 0) + "</td><td>" + 
         ath.getNumberOfSkillRatings("PASS", 1) + "</td><td>" + 
         ath.getNumberOfSkillRatings("PASS", 2) + "</td><td>" + 
         ath.getNumberOfSkillRatings("PASS", 3) + "</td><td>" + 
-        ath.passingAvg + "</td><td>" + 
+        ath.passingAvg + "</td><td class='div-td'></td><td>" + 
 
         ath.getNumberOfSkillRatings("ATTACK", 0) + "</td><td>" + 
         ath.getNumberOfSkillRatings("ATTACK", 1) + "</td><td>" + 
         ath.getNumberOfSkillRatings("ATTACK", "K") + "</td><td>" + 
-        ath.attackAvg + "</td><td>" + 
+        ath.attackAvg + "</td><td class='div-td'></td><td>" + 
 
         ath.getNumberOfSkillRatings("SERVE", 0) + "</td><td>" + 
         ath.getNumberOfSkillRatings("SERVE", 1) + "</td><td>" + 
         ath.getNumberOfSkillRatings("SERVE", "A") + "</td><td>" + 
-        ath.serveAvg + "</td><td>" + 
+        ath.serveAvg + "</td><td class='div-td'></td><td>" + 
 
         ath.getNumberOfSkillRatings("ERROR", -1) +  "</td></tr>");
     });
@@ -49,25 +49,30 @@ function inputTableBody() {
 
     db.athletes.map(ath => {
         var rowKey = [ath.getId(), "row"].join(STAT_KEY_DELIMITER);
-
+        var borderTopBottom = (ath.isActive() == "TRUE" ? BORDER_BOTTOM_CHECKED:BORDER_BOTTOM_CHECKED);
         // console.log(ath.getNumber(), ath.isActive())
-       tableString+= ("<tr id='" + rowKey + "'><td>" + 
+       tableString+= ("<tr id='" + rowKey + "' style='border-bottom:" + borderTopBottom + "; border-top:" + borderTopBottom + ";'><td>" + 
        ath.getNumber() + "</td><td>" + 
-       ath.getName() + "</td><td>" + 
+       ath.getName() + "</td>" + 
+       "<td class='div-td'></td><td>" + 
        "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.PASS, 0).getKey() + "')>0</button></td><td>" + 
        "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.PASS, 1).getKey() + "')>1</button></td><td>" + 
        "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.PASS, 2).getKey() + "')>2</button></td><td>" + 
-       "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.PASS, 3).getKey() + "')>3</button></td><td>" + 
+       "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.PASS, 3).getKey() + "')>3</button></td>" + 
+       "<td class='div-td'></td><td>" + 
 
        "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.ATTACK, 0).getKey() + "')>0</button></td><td>" + 
        "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.ATTACK, 1).getKey() + "')>1</button></td><td>" + 
-       "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.ATTACK, "K").getKey() + "')>K</button></td><td>" + 
+       "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.ATTACK, "K").getKey() + "')>K</button></td>" + 
 
+       "<td class='div-td'></td><td>" +
        "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.SERVE, 0).getKey() + "')>0</button></td><td>" + 
        "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.SERVE, 1).getKey() + "')>1</button></td><td>" + 
-       "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.SERVE, "A").getKey() + "')>A</button></td><td>" + 
+       "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.SERVE, "A").getKey() + "')>A</button></td>" + 
+       "<td class='div-td'></td><td>" + 
 
-       "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.ERROR, 0).getKey() + "')>E</button></td><td>" +
+       "<button onclick = updateStats('"+ new StatKey(ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(), SKILL.ERROR, 0).getKey() + "')>E</button></td>" +
+       "<td class='div-td'></td><td>" + 
        "<input type='checkbox' rowId='" + rowKey + "' active =" + ath.isActive() + " statkeyprefix='" + [ath.getNumber(), ath.getName().substring(0, 3).toLowerCase(),SKILL.ACTIVE].join(STAT_KEY_DELIMITER) +"'></td>");
     });
     return tableString;

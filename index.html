@@ -2,89 +2,115 @@
     <head>
 
         <link rel="stylesheet" media="print,screen" href="./style.css">
-
         <link rel="stylesheet" href="./features/tab-content/tabs.css">
 
-        <!-- <script type="module" src="./script.js"></script> -->
-        <!-- <script type="module" src="./features/tab-content/ManageTabContent.js"></script> -->
-        <!-- <script type="module" src="./features/interact/SortTable.js"></script> -->
         <script type="module" src="./index.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     </head>
     <body>
         <div>
+            <!-- TAB BUTTONS: 2 -->
             <div class="tab-btn-container">
                 <button class = "tab-btn" onclick = "displayTabContent('input-tab', this)" ref="input-tab">Input</button>
                 <button class = "tab-btn" onclick = "displayTabContent('stats-tab', this)" ref="stats-tab">Stats</button>
             </div>
+
+            <!-- FIRST TAB: INPUT TABLE -->
             <div class = "tab-content" id = "input-tab">
-                <div>
-                    <h2>Stat Input Table</h2>
-                <div class = "input-btn-cont"</div>
-                    <button onclick="undoLastStatEntry()">Undo</button>
-                    <button onclick="clearStatSheet()">Clear</button>
-                    <button onclick="printStatSheet()">Print</button>
-                </div>
+                <div class = "tab-content-body">
+                    <div class="title-btn-cont">
+                        <h1>Stat Input Table</h1>
+                        <div class = "input-btn-cont">
+                            <button onclick="undoLastStatEntry()">Undo</button>
+                            <button onclick="clearStatSheet()">Clear</button>
+                            <button onclick="printStatSheet()">Print</button>
+                        </div>
+                    </div>
+                    
                     <table>
                         <tr>
                             <th>#</th>
-                            <th>Athlete Name</th>
+                            <th>Athlete Name</th>                            
+                            <th class = "div-td"></th>
+
                             <th colspan="4">Passing</th>
+                            <th class = "div-td" rowspan="2"></th>
+
                             <th colspan="3">Attacking</th>
+                            <th class = "div-td" rowspan="2"></th>
+
                             <th colspan="3">Serving</th>
+                            <th class = "div-td" rowspan="2"></th>
+
                             <th>Error</th>
-                            <th>Active <button onclick = "window.sortInputTable('active', true)">sort</button></th>
+                            <th class = "div-td" rowspan="2"></th>
+
+                            <th> 
+                                <button id="sort-active-btn" onclick = "window.sortInputTable('active', true)">
+                                    Active
+                                    <span class="glyphicon">&#xe156;</span>
+                                </button>
+                            </th>
                         </tr>
                         <tbody id = "input-table"></tbody>
                     </table>
                 </div>
             </div>
 
+            <!-- SECOND TAB: STAT TABLE -->
             <div class = "tab-content" id = "stats-tab">
-            <div>
-                <h2>Stat Totals</h2>
+                <div class = "tab-content-body">
+                    <div class="title-btn-cont">
+                        <h1>Stat Totals</h1>
+                        <div class = "input-btn-cont">
+                            <button onclick="undoLastStatEntry()">Undo</button>
+                            <button onclick="clearStatSheet()">Clear</button>
+                            <button onclick="printStatSheet()">Print</button>
+                        </div>
+                    </div>
 
-                <table>
-                    <tr>
-                        <th rowspan="2">#</th>
-                        <th rowspan="2">Athlete Name</th>
-                        <th colspan="5">Passing</th>
-                        <th colspan="4">Attacking</th>
-                        <th colspan="4">Serving</th>
-                        <th rowspan="2">Errors</th>
-                    </tr>
-                    <tr>
-                        
-                        <th>0</th>
-                        <th>1</th>
-                        <th>2</th>
-                        <th>3</th>
-                        <th>Avg</th>
+                    <table>
+                        <tr>
+                            <th rowspan="2">#</th>
+                            <th rowspan="2">Athlete Name</th>
+                            <th class = "div-td" rowspan="2"></th>
+                            <th colspan="5">Passing</th>
+                            <th class = "div-td" rowspan="2"></th>
+
+                            <th colspan="4" >Attacking</th>
+                            <th class = "div-td" rowspan="2"></th>
+
+                            <th colspan="4">Serving</th>
+                            <th class = "div-td" rowspan="2"></th>
+                            <th rowspan="2">Errors</th>
+                        </tr>
+                        <tr>
+                            <th>0</th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>Avg</th>
 
 
-                        <th>0</th>
-                        <th>1</th>
-                        <th>K</th>
-                        <th>Avg</th>
+                            <th>0</th>
+                            <th>1</th>
+                            <th>K</th>
+                            <th>Avg</th>
 
-                        <th>0</th>
-                        <th>1</th>
-                        <th>A</th>
-                        <th>Avg</th>
-                    </tr>
+                            <th>0</th>
+                            <th>1</th>
+                            <th>A</th>
+                            <th>Avg</th>
+                        </tr>
+                        <tbody id = "stat-sheet"></tbody>
+                    </table>
 
-                    <tbody id = "stat-sheet"></tbody>
-                    
-                </table>
-
-                <div class = "input-btn-cont"</div>
-                    <button onclick="undoLastStatEntry()">Undo</button>
-                    <button onclick="clearStatSheet()">Clear</button>
-                    <button onclick="printStatSheet()">Print</button>
                 </div>
             </div>
-            </div>
-
         </div>
     </body>
     

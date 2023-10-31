@@ -1,6 +1,6 @@
 import { addOnChangeListenerForActiveCheckboxes } from "../../script.js";
-const ASCENDING = true;
-const DESCENDING = false;
+import { BORDER_BOTTOM_CHECKED, BORDER_BOTTOM_UNCHECKED} from "../stats/util/Constants.js";
+
 const INPUT_TABLE_ID = "input-table";
 
 const ATH_NUM_KEY = "num";
@@ -31,11 +31,14 @@ function sortInputTableByNumber(ascending) {
 
 function addActiveAttributeIfActiveIsChecked(list) {
     list.forEach(elm => {
+        console.log(elm.style)
         var currentActiveCheckbox = elm.querySelector("input[type='checkbox']");
         if (currentActiveCheckbox.checked) {
-            console.log(elm)
             currentActiveCheckbox.setAttribute("active", "TRUE");
         }
+        elm.style.borderBottom = currentActiveCheckbox.checked ? BORDER_BOTTOM_CHECKED : BORDER_BOTTOM_UNCHECKED;
+        elm.style.borderTop = currentActiveCheckbox.checked ? BORDER_BOTTOM_CHECKED : BORDER_BOTTOM_UNCHECKED;
+
     })
 }
 function getNodeListAsString(list) {
