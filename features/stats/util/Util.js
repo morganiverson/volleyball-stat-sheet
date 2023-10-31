@@ -26,4 +26,10 @@ function getSkill(skillString) {
 function round(num, numDigits) {
     return Number.parseFloat(num).toFixed(numDigits);
 }
-export { getSkill, parseKeyString, round }
+
+function isMobileDevice() {
+    console.log(navigator.userAgent)
+    return null;
+}
+
+export { getSkill, parseKeyString, round, isMobileDevice }

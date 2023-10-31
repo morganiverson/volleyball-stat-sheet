@@ -10,7 +10,24 @@ export default function printStatSheet() {
     var originalDocumentBody = document.body.innerHTML;
 
     document.body.innerHTML = header + body + footer;
-    window.print();
+    // if (window.innerHeight <1300) {
+    //     try {
+    //     document.execCommand('print', false, null);
+    //     }
+    //     catch {
+    //         window.print();
+    //     }
+    // } else {
+        window.print();
+    // }
+    // window.addEventListener("afterprint", () => {
+        
+    //     // window.location.reload();
+    //     window.removeEventListener("afterprint")
+    // });
     document.body.innerHTML = originalDocumentBody;
-    window.location.reload();
+
+    if (window.innerHeight > 1300) {
+        window.location.reload()
+    }
 }

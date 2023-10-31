@@ -9,7 +9,7 @@ import { loadRoster } from "./features/load-roster/LoadRoster.js";
 import { sortInputTable } from "./features/interact/SortTable.js";
 import { populateTables, addOnChangeListenerForActiveCheckboxes } from "./script.js";
 import { updateStatTable, updateInputTable } from "./features/stats/services/StatDisplayService.js";
-
+import { isMobileDevice } from "./features/stats/util/Util.js";
 window.sortInputTable = sortInputTable;
 window.clearStatSheet = clearStatSheet;
 window.printStatSheet = printStatSheet;
@@ -49,6 +49,7 @@ window.onload = () => {
         populateTables().then(() => addOnChangeListenerForActiveCheckboxes());
     }
 
+    console.log(isMobileDevice())
     if (window.innerWidth< 1200) {
         console.log("mobile");
         var buttons = document.querySelectorAll("td button").forEach(btn => {
