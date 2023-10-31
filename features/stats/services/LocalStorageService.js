@@ -26,7 +26,7 @@ export default class LocalStorageService {
         var jsonObj = JSON.parse(localStorage.getItem(LOCAL_STG_DB_KEY));
         var matchStatDB = new MatchStatDatabase(jsonObj["athletes"], jsonObj["history"], jsonObj["statTotals"]);
         if (matchStatDB.history.length == 0) {
-            console.error("Stat Hiostroy is Empty!");
+            alert("Stat History is Empty!");
             return;
         }
         var statKeyString = matchStatDB.history.pop();
