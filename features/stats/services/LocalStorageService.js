@@ -16,6 +16,11 @@ export default class LocalStorageService {
         localStorage.setItem(LOCAL_STG_DB_KEY, JSON.stringify(db));
     }
     
+    setDatabase(db) {
+        this.db = db;
+        localStorage.setItem(LOCAL_STG_DB_KEY, JSON.stringify(db));
+    }
+
     undoLastUpdate() {
         // Get Data From Local Storage
         var jsonObj = JSON.parse(localStorage.getItem(LOCAL_STG_DB_KEY));
@@ -52,11 +57,11 @@ export default class LocalStorageService {
         matchStatDB.updateStatByAtheleteId(dbKey, skill, value);
         // console.log( matchStatDB)
         // Update Local Storage
-        // if (skill != "ACTIVE") {
+        if (skill != "ACTIVE") {
         
-            // console.log ("Update ", statKeyString);
+            console.log ("Update ", statKeyString);
             matchStatDB.history.push(statKeyString);
-        // }
+        }
         localStorage.setItem(LOCAL_STG_DB_KEY, JSON.stringify(matchStatDB));
         updateStatTable();
     }
@@ -70,7 +75,10 @@ export default class LocalStorageService {
         var jsonObj = JSON.parse(jsonString);
     
         var matchStatDB = new MatchStatDatabase(jsonObj["athletes"], jsonObj["history"]);
-        matchStatDB.athletes = matchStatDB.athletes.map(athlete => createAthleteStats(athlete));
+        matchStatDB.athletes = matchStatDB.athletes.map(athlete => createAthleteStats(athlete))
+        .sort((a, b) => (b.isActive() == "TRUE") - (a.isActive() == "TRUE"));
         return matchStatDB;
     }
 }
+
+export const LOCAL_STORAGE_SERVICE = new LocalStorageService();

@@ -1,5 +1,8 @@
 import { STAT_KEY_DELIMITER, SKILL } from "./Constants.js";
 import StatKey from "../classes/StatKey.js";
+import LocalStorageService from "../services/LocalStorageService.js";
+
+export const LOCAL_STORAGE_SERVICE = new LocalStorageService();
 
 function parseKeyString(statKeyString) {
     var statKeyArray = statKeyString.split(STAT_KEY_DELIMITER);

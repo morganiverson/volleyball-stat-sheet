@@ -1,5 +1,5 @@
-import { round } from "../util/Util.js";
-
+import * as Util from "../util/Util.js";
+import { STAT_KEY_DELIMITER } from "../util/Constants.js";
 class AthleteStats {
     constructor(name, number, id, passRatingList, serveRatingList, attackRatingList, errorCount, active) {
         this.name = name;
@@ -15,7 +15,7 @@ class AthleteStats {
             this.passingAvg = 0;
         } else {
             this.passRatingList = passRatingList;
-            this.passingAvg = round(averageList(this.passRatingList), 2);
+            this.passingAvg = Util.round(averageList(this.passRatingList), 2);
         }
         
         if (serveRatingList == undefined || serveRatingList.length == 0) {
@@ -59,7 +59,7 @@ class AthleteStats {
         switch (skill) {
             case "ACTIVE": this.active = value; break;
             case "PASS": this.passRatingList.push(value); 
-                this.passingAvg = round(averageList(this.passRatingList), 2); 
+                this.passingAvg = Util.round(averageList(this.passRatingList), 2); 
                 break;
             case "ATTACK": this.attackRatingList.push(value); 
                 this.attackAvg = getOverallSkillRating(this.attackRatingList, "K");

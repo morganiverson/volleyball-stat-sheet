@@ -1,8 +1,6 @@
-import LocalStorageService from "./LocalStorageService.js";
+import LocalStorageService, { LOCAL_STORAGE_SERVICE } from "./LocalStorageService.js";
 import { STAT_KEY_DELIMITER, SKILL } from "../util/Constants.js";
 import StatKey from "../classes/StatKey.js";
-
-// const localStorageService = new LocalStorageService();
 
 function updateStatTable() {
     var statSheet = document.getElementById("stat-sheet");
@@ -10,7 +8,7 @@ function updateStatTable() {
 }
 
 function statTableBody() {
-    var db = new LocalStorageService().getMatchStatDatabase();
+    var db = LOCAL_STORAGE_SERVICE.getMatchStatDatabase();
     var tableString = "";
 
     db.athletes.map(ath => {
@@ -45,7 +43,7 @@ function updateInputTable() {
 }
 
 function inputTableBody() {
-    var db = new LocalStorageService().getMatchStatDatabase();
+    var db = LOCAL_STORAGE_SERVICE.getMatchStatDatabase();
     var tableString = "";
     console.log("input body")
 

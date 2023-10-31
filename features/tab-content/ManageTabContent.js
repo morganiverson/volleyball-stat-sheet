@@ -5,7 +5,7 @@ const SELECTED_TAB_CLASS_NAME = "selected-tab";
 
 const DEFAULT_TAB_ID = "stats-tab";
 
-function displayTabContent(id, element) {
+export function displayTabContent(id, element) {
     //hide other tab content
     [...document.getElementsByClassName(TAB_CONTENT_CLASS_NAME)].filter(element => element.id != id).forEach(element => element.style.display = "none");
     
@@ -20,11 +20,11 @@ function displayTabContent(id, element) {
 
 }
 
-window.addEventListener("load", () => {
+export default function initializeTabContent() {
     var currentTab = localStorage.getItem(TAB_LS_KEY);
     if (currentTab == null) {
         currentTab = DEFAULT_TAB_ID;
         localStorage.setItem(TAB_LS_KEY, currentTab);
     }
-    displayTabContent(currentTab, document.querySelector("button.tab-btn[ref='" + currentTab + "']"))
-});
+    displayTabContent(currentTab, document.querySelector("button.tab-btn[ref='" + currentTab + "']"));
+}

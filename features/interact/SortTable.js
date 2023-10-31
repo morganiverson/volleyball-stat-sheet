@@ -6,9 +6,6 @@ const INPUT_TABLE_ID = "input-table";
 const ATH_NUM_KEY = "num";
 const ATH_ACTIVE_KEY = "active";
 
-
-
-
 function sortInputTableByActive(ascending) {
     var rows = [...document.getElementById(INPUT_TABLE_ID).querySelectorAll("tr")];
     return rows.sort((a,b) => {
@@ -32,6 +29,15 @@ function sortInputTableByNumber(ascending) {
     });
 }
 
+function addActiveAttributeIfActiveIsChecked(list) {
+    list.forEach(elm => {
+        var currentActiveCheckbox = elm.querySelector("input[type='checkbox']");
+        if (currentActiveCheckbox.checked) {
+            console.log(elm)
+            currentActiveCheckbox.setAttribute("active", "TRUE");
+        }
+    })
+}
 function getNodeListAsString(list) {
     return list.map(elm => elm.outerHTML).join("\n\n");
 }
@@ -45,13 +51,14 @@ function sortInputTableAsync(key, ascending) {
         sortedList = sortInputTableByActive(ascending);
     }
 
+    addActiveAttributeIfActiveIsChecked(sortedList);
+    console.log(sortedList);
     input_table.innerHTML = getNodeListAsString(sortedList);
     return Promise.resolve();
 }
 
 export function sortInputTable(key, ascending) {
+    console.log("Sort Table: " + key + (ascending ? " ASC":" DES"))
     sortInputTableAsync(key, ascending)
-    .then(() => {
-        addOnChangeListenerForActiveCheckboxes();
-    })
+    .then(() => addOnChangeListenerForActiveCheckboxes());
 }
