@@ -1,0 +1,35 @@
+/* @media print { */
+
+    body {
+        -webkit-print-color-adjust:exact !important;
+        print-color-adjust:exact !important;
+    }
+    table, td, th {
+        border: 1px solid black;
+    }
+
+    table {
+        width: 100%;
+    }
+    .tab-content, .tab-content-body {
+        width: 100%;
+    }
+    th.div-td, td.div-td {
+        width: 0px;
+    }
+
+    .input-btn-cont {
+        display: none;
+    }
+
+    td:not(.div-td), th:not(.div-td) {
+        padding: 15px;
+
+    }
+    tr:nth-child(even) {
+        background-color: lightgrey !important;
+    }
+    th {
+        background-color: rgb(175, 175, 175) !important;
+    }
+/* } */

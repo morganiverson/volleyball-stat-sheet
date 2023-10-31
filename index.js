@@ -25,7 +25,9 @@ window.undoLastStatEntry = () => {
 }
 
 window.onload = () => {
-    console.log(window.innerWidth)
+    if (sessionStorage.getItem("MOBILE") == null) {
+        sessionStorage.setItem("MOBILE", window.innerWidth<1300);
+    }
     initializeTabContent();
 
 
@@ -50,7 +52,7 @@ window.onload = () => {
     }
 
     console.log(isMobileDevice())
-    if (window.innerWidth< 1200) {
+    if (sessionStorage.getItem("MOBILE") == true) {
         console.log("mobile");
         var buttons = document.querySelectorAll("td button").forEach(btn => {
             btn.ontouchstart = () => btn.style.transform = "scale(0.99)";

@@ -1,0 +1,118 @@
+:root {
+    --select-tab-color: white;
+    --hover-tab-color: lightgrey;
+    --accent-color: rgb(107, 174, 174);
+    --base-button-color: #eee;
+    --alt-row-color:lightgrey;
+    --light-btn-text-color:grey;
+}
+
+body {
+    font-family: Helvetica;
+    font-size: 1vw;
+    padding: 15px;
+}
+
+td {
+    border-bottom: 0;
+}
+
+#sort-active-btn {
+    background-color: transparent;
+    border: none;
+    text-transform: uppercase;
+}
+
+table, td, tr, th {
+    border-collapse: collapse;
+    padding: 5px;
+    text-align: center;
+}
+
+.div-td {
+    border-left: 1px solid black;
+    width: 0px;
+    padding: 0px;
+}
+
+table {
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    border: none;
+}
+tr th {
+    background-color: var(--accent-color);
+    color: white;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: center;
+}
+
+#stats-tab td:not(.div-td), #stats-tab th:not(.div-td), #input-tab th:not(.div-td) {
+    padding: 15px;
+}
+
+#input-tab td:not(.div-td) {
+    padding: 3px;
+}
+
+td {
+    text-align: center;
+}
+
+tr:nth-child(even) {
+    background-color: var(--alt-row-color);
+}
+
+.input-btn-cont {
+    display: flex;
+    align-items: center;
+    margin: 0px 10px 0px 10px;
+}
+
+.input-btn-cont button {
+    /* float: right; */
+    float: initial;
+    padding: 10px;
+    margin: 0px 5px 0px 5px;
+    text-transform: uppercase;
+    border: none;
+    box-sizing: border-box;
+
+    border-radius: 999px;
+    width: 100px;
+    background-color: var(--base-button-color);
+    font-weight: 300;
+    color: var(--light-btn-text-color);
+}
+
+.input-btn-cont button:hover {
+    background-color: lightgrey;
+}
+
+.tab-content-body {
+    width: 100%;
+    /* border: 3px solid black; */
+    display: flex;
+    flex:1;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+}
+
+.title-btn-cont {
+    display: flex;
+    /* flex: 1; */
+    width: 100%;
+    justify-content: space-between;
+    flex-direction: row;
+    /* border: 3px solid green; */
+    padding-left: 20px;
+    /* background-color: blue; */
+    padding-bottom: 5px;
+}
+
+td button {
+    border: 1px solid grey;
+}

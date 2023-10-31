@@ -1,0 +1,29 @@
+:root {
+    --select-tab-color: white;
+    --hover-tab-color: lightgrey;
+    --accent-color: rgb(107, 174, 174);
+    --base-button-color: #eee;
+    --alt-row-color:lightgrey;
+    --light-btn-text-color:grey;
+}
+
+@media screen and (min-width: 1300px) {
+    td button {
+        font-size: 2vw;
+        width: 5vw;
+        max-height: 70px;
+        max-width: 70px;
+        aspect-ratio: 1;
+        border-radius:15px;
+        /* border: 1px solid black; */
+    }
+    td button:hover {
+        background-color: grey;
+    }
+
+    input[type=checkbox] {
+        height: 1vw;
+        aspect-ratio: 1;
+        max-height: 40px;
+    }
+}
