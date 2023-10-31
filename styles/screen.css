@@ -13,6 +13,13 @@ body {
     padding: 15px;
 }
 
+.total-row {
+    background-color: var(--accent-color);
+    font-weight: bold;
+
+    border-top: 3px solid black;
+}
+
 td {
     border-bottom: 0;
 }

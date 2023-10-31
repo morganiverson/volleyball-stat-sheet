@@ -1,4 +1,7 @@
 export default function printStatSheet() {
+    var table = document.getElementById("stats-tab").querySelector("table");
+    // table.querySelectorAll
+
     var documentTitle = window.prompt("Stat Sheet Title:", "StatSheet_" + new Date().toLocaleString());
     if (documentTitle == null) {
         return;

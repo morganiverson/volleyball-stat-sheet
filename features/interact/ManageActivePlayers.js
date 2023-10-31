@@ -25,7 +25,6 @@ function highlightRowIfActive(rowId) {
         row.style.borderBottom = BORDER_BOTTOM_UNCHECKED;
         row.style.borderTop = BORDER_BOTTOM_UNCHECKED;
     }
-    console.log(box.checked,row.style.borderBottom)
 }
 
 

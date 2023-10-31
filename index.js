@@ -30,8 +30,6 @@ window.onload = () => {
     }
     initializeTabContent();
 
-
-    
     console.log("reload")
     var existingData = LOCAL_STORAGE_SERVICE.getMatchStatDatabase();
 
@@ -52,7 +50,6 @@ window.onload = () => {
     }
 
     if (sessionStorage.getItem("MOBILE") == "true") {
-        console.log("mobile");
         var buttons = document.querySelectorAll("td button").forEach(btn => {
             btn.ontouchstart = () => btn.style.transform = "scale(0.99)";
             btn.ontouchend = () => btn.style.transform = "scale(1)";

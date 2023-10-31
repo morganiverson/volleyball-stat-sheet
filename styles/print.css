@@ -32,4 +32,14 @@
     th {
         background-color: rgb(175, 175, 175) !important;
     }
+
+    .total-row {
+        font-weight: bold;
+    
+        border-top: 3px solid black;
+    }
+
+    .tab-btn-container {
+        display: none;
+    }
 /* } */

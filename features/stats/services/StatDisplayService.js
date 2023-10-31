@@ -6,11 +6,15 @@ function updateStatTable() {
     var statSheet = document.getElementById("stat-sheet");
     statSheet.innerHTML = statTableBody();
 }
+function getAthleteTotals(db) {
+    return db.statTotals;
+}
 
 function statTableBody() {
     var db = LOCAL_STORAGE_SERVICE.getMatchStatDatabase();
     var tableString = "";
 
+    var totalRow = getTotalRowForStatTable(getAthleteTotals(db));
     db.athletes.map(ath => {
         // console.log(ath)
        tableString+= ("<tr><td>" + 
@@ -34,8 +38,21 @@ function statTableBody() {
 
         ath.getNumberOfSkillRatings("ERROR", -1) +  "</td></tr>");
     });
+
+    tableString+=totalRow;
     return tableString;
 }
+
+function getTotalRowForStatTable(totalObject) {
+    // console.log(totalObject)
+    return "<tr class = 'total-row'><td></td><td>Totals & Averages</td><td class='div-td'>" 
+    + "<td>" + totalObject.pass0 + "</td>" + "<td>" + totalObject.pass1 + "</td>"+ "<td>" + totalObject.pass2 + "</td>"+ "<td>" + totalObject.pass3+ "</td>" + "<td>" + totalObject.passAvg + "</td><td class='div-td'>"
+    + "<td>" + totalObject.attack0 + "</td>" + "<td>" + totalObject.attack1 + "</td>" + "<td>" + totalObject.attackK + "</td>" + "<td>" + totalObject.attackAvg + "</td><td class='div-td'>"
+    + "<td>" + totalObject.serve0 + "</td>" + "<td>" + totalObject.serve1 + "</td>" + "<td>" + totalObject.serveA + "</td>" + "<td>" + totalObject.serveAvg + "</td><td class='div-td'>"
+    + "<td>" + totalObject.errors + "</td>"
+
+}
+
 
 function updateInputTable() {
     var inputTable = document.getElementById("input-table");

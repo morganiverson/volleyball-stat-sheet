@@ -24,7 +24,7 @@ export default class LocalStorageService {
     undoLastUpdate() {
         // Get Data From Local Storage
         var jsonObj = JSON.parse(localStorage.getItem(LOCAL_STG_DB_KEY));
-        var matchStatDB = new MatchStatDatabase(jsonObj["athletes"], jsonObj["history"]);
+        var matchStatDB = new MatchStatDatabase(jsonObj["athletes"], jsonObj["history"], jsonObj["statTotals"]);
         if (matchStatDB.history.length == 0) {
             console.error("Stat Hiostroy is Empty!");
             return;
@@ -53,7 +53,7 @@ export default class LocalStorageService {
         var dbKey = statKey.getDatabaseKey();
         // FInd & Update Athlete Object
         var jsonObj = JSON.parse(localStorage.getItem(LOCAL_STG_DB_KEY));
-        var matchStatDB = new MatchStatDatabase(jsonObj["athletes"], jsonObj["history"]);
+        var matchStatDB = new MatchStatDatabase(jsonObj["athletes"], jsonObj["history"], jsonObj["statTotals"]);
         matchStatDB.updateStatByAtheleteId(dbKey, skill, value);
         // console.log( matchStatDB)
         // Update Local Storage
@@ -74,7 +74,7 @@ export default class LocalStorageService {
         }
         var jsonObj = JSON.parse(jsonString);
     
-        var matchStatDB = new MatchStatDatabase(jsonObj["athletes"], jsonObj["history"]);
+        var matchStatDB = new MatchStatDatabase(jsonObj["athletes"], jsonObj["history"], jsonObj["statTotals"]);
         matchStatDB.athletes = matchStatDB.athletes.map(athlete => createAthleteStats(athlete))
         .sort((a, b) => (b.isActive() == "TRUE") - (a.isActive() == "TRUE"));
         return matchStatDB;
