@@ -19,7 +19,7 @@
         aspect-ratio: 1;
         border-radius: 15%;
         /* border: 1px solid black; */
-        color: red;
+        color: black;
         transition: 0.2s all; 
     }
     td button:hover {
@@ -35,7 +35,6 @@
         max-height: 70px;
     }
     table {
-        background-color: yellow;
         max-width:90%;
     }
 }
