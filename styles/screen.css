@@ -36,10 +36,10 @@ table, td, tr, th {
 }
 
 table {
-    width: 100%;
+    width: 90%;
     border-radius: 5px;
     overflow: hidden;
-    border: none;
+    border: 0;
 }
 tr th {
     background-color: var(--accent-color);

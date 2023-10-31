@@ -12,8 +12,13 @@ export default function printStatSheet() {
     document.body.innerHTML = header + body + footer;
     window.print();
 
-    document.body.innerHTML = originalDocumentBody;
-    if (sessionStorage.getItem("MOBILE") != true) {
+    if (sessionStorage.getItem("MOBILE") != "true") {
         window.location.reload()
+    } else {
+        window.addEventListener("afterprint", () => {
+            document.body.innerHTML = originalDocumentBody;
+
+            window.removeEventListener("afterprint", this)
+        });
     }
 }

@@ -51,8 +51,7 @@ window.onload = () => {
         populateTables().then(() => addOnChangeListenerForActiveCheckboxes());
     }
 
-    console.log(isMobileDevice())
-    if (sessionStorage.getItem("MOBILE") == true) {
+    if (sessionStorage.getItem("MOBILE") == "true") {
         console.log("mobile");
         var buttons = document.querySelectorAll("td button").forEach(btn => {
             btn.ontouchstart = () => btn.style.transform = "scale(0.99)";

@@ -8,14 +8,18 @@
     --light-btn-text-color:grey;
 }
 
-@media only screen and (min-width: 600px) and (max-width: 1299px){
+@media only screen and (max-width: 1299px){
+    body{
+        font-size: 1vw;
+    } 
+
     td button {
         font-size: 2vw;
         width: 5vw;
         aspect-ratio: 1;
         border-radius: 15%;
         /* border: 1px solid black; */
-        /* color: red; */
+        color: red;
         transition: 0.2s all; 
     }
     td button:hover {
@@ -29,5 +33,9 @@
         height: 7vw;
         aspect-ratio: 1;
         max-height: 70px;
+    }
+    table {
+        background-color: yellow;
+        max-width:90%;
     }
 }
