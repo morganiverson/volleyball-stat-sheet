@@ -5,11 +5,10 @@
 
         <link rel="stylesheet" href="./features/tab-content/tabs.css">
 
-
-        <script type="text/javascript" src="./script.js"></script>
-        <script type="text/javascript" src="./load-rosters.js"></script>
+        <script type="module" src="./script.js"></script>
         <script type="text/javascript" src="./features/tab-content/manage-tabs.js"></script>
-        <script type="text/javascript" src="./features/stats/print.js"></script>
+        <script type="module" src="./features/interact/SortTable.js"></script>
+        <script type="module" src="./index.js"></script>
 
     </head>
     <body>
@@ -34,7 +33,7 @@
                             <th colspan="3">Attacking</th>
                             <th colspan="3">Serving</th>
                             <th>Error</th>
-                            <th>Active</th>
+                            <th>Active <button onclick = "window.sortInputTable('active', true)">sort</button></th>
                         </tr>
                         <tbody id = "input-table"></tbody>
                     </table>

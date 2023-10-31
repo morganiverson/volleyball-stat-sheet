@@ -1,4 +1,4 @@
-function printStatSheet() {
+export default function printStatSheet() {
     var documentTitle = window.prompt("Stat Sheet Title:", "StatSheet_" + new Date().toLocaleString());
     if (documentTitle == null) {
         return;
@@ -13,12 +13,4 @@ function printStatSheet() {
     window.print();
     document.body.innerHTML = originalDocumentBody;
     window.location.reload();
-}
-
-function clearStatSheet() {
-    var clear = confirm("Are you sure you want to clear this stat sheet?");
-    if (clear) {
-        localStorage.clear();
-        window.location.reload()
-    }
 }
